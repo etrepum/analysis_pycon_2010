@@ -1,0 +1,67 @@
+Theory:
+
+* http://queue.acm.org/detail.cfm?id=1394128
+* http://www.readwriteweb.com/archives/is_the_relational_database_doomed.php
+* http://research.microsoft.com/en-us/um/people/lamport/pubs/pubs.html#paxos-simple
+* http://en.wikipedia.org/wiki/Lamport_timestamps
+* http://en.wikipedia.org/wiki/Vector_clocks
+* http://ieeexplore.ieee.org/xpl/freeabs_all.jsp?arnumber=755678
+
+Caching:
+
+* http://www.danga.com/memcached/
+* Invalidation is hard
+
+Bloom filters:
+
+* http://en.wikipedia.org/wiki/Bloom_filter
+* http://www.youtube.com/watch?v=947gWqwkhu0
+* http://github.com/jaybaird/python-sbf/tree/master
+* http://www.eecs.harvard.edu/~kirsch/pubs/bbbf/esa06.pdf
+* Bloom Filter, Scalable Bloom Filter, Counting Bloom Filter
+
+Cassandra:
+
+* http://code.google.com/p/the-cassandra-project/
+* http://www.slideshare.net/jhammerb/data-presentations-cassandra-sigmod
+* http://perspectives.mvdirona.com/2009/02/07/FacebookCassandraArchitectureAndDesign.aspx
+
+Column Databases:
+
+* http://hypertable.org/
+* http://db.csail.mit.edu/projects/cstore/
+* http://monetdb.cwi.nl/
+* http://code.google.com/appengine/docs/python/datastore/
+
+Bitmap Indexes:
+
+* https://codeforge.lbl.gov/projects/fastbit/
+
+Key-value stores:
+
+* http://blog.plathome.com/2009/02/first-key-value-storage-meeting-held.html
+* http://www.oracle.com/technology/products/berkeley-db/index.html
+* http://tokyocabinet.sourceforge.net/
+* http://code.google.com/p/redis/
+
+Distributed Key-Value stores:
+
+* http://opensource.plurk.com/LightCloud/
+* http://www.metabrew.com/article/anti-rdbms-a-list-of-distributed-key-value-stores/
+* http://delicious.com/RichardJones
+* http://en.wikipedia.org/wiki/Vector_clocks
+* http://en.wikipedia.org/wiki/Lamport_timestamps
+
+Distributed Databases
+
+* http://www.allthingsdistributed.com/2007/10/amazons_dynamo.html
+* http://labs.google.com/papers/bigtable.html
+* http://wiki.apache.org/hadoop/Hbase
+* http://www.hypertable.org/
+
+
+Document Databases:
+
+* http://www.mongodb.org/
+* http://couchdb.apache.org/
+* http://code.google.com/p/thrudb/

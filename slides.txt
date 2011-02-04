@@ -1,0 +1,371 @@
+.. include:: <s5defs.txt>
+.. include:: ui/beamerdefs.txt
+
+.. raw:: html
+    :file: includes/logo.html
+
+=====================================
+ Analysis: The Other Kind of Testing
+=====================================
+
+:Author:
+    Bob Ippolito (@etrepum)
+:Date:
+    February 2010
+:Venue:
+    PyCon 2010
+
+Bob's Perspective
+=================
+
+:Mochi Media:
+
+* CTO/Cofounder of Mochi Media
+* Platform for Flash games
+* Virtual currency and game discovery for gamers
+
+Mochi 2005
+==========
+
+:Starting Up:
+
+.. image:: images/mochi_2005.jpg
+
+Mochi 2010
+==========
+
+:Mochi joins Shanda Games:
+
+.. image:: images/mochi_2010.jpg
+
+Analysis
+========
+
+:Definition:
+
+* Separation of a whole into its component parts
+* An examination of a complex, its elements, and their relations
+
+Why do I care?
+==============
+
+:SCIENCE:
+
+* Be creative when exploring new ideas
+* Not when measuring them
+
+Who does this?
+==============
+
+:A-Z of online:
+
+* Amazon
+* Facebook
+* Google
+* Microsoft
+* Zynga
+
+How it works
+============
+
+:Scientific Method:
+
+* Create a hypothesis
+* Design an experiment
+* Run experiment
+* Analyze the results
+
+Hypothesis
+==========
+
+:Your Great Idea:
+
+* Divergent from what you have
+* Simple
+* Testable
+
+Testable
+========
+
+:Fitness Metric:
+
+* Quantifiable
+* Business relevant
+* Key Performance Indicator
+* Overall Evaluation Criteria
+
+Fitness Metric Examples
+=======================
+
+:Your Metric May Vary:
+
+* Click-through rate (CTR)
+* Cost Per Acquisition (CPA)
+* Avg $ per user (ARPU)
+* % of gamers who beat the last level
+
+Experiment
+==========
+
+:"To Try Out":
+
+* Method of investigation
+* Many ways to do this
+* Easiest to follow a template
+
+Split Testing
+=============
+
+:A/B Testing:
+
+* 50% control group gets no changes
+* 50% test group sees changes
+* Group selection method is important
+
+Group Selection
+===============
+
+:random.choice:
+
+* Group should be randomly selected
+* Pin user to group during experiment
+* Easiest with logins, but can be done without (cookies, etc.)
+
+Selection Pseudocode
+====================
+
+::
+
+    from random import choice
+
+    def view_page():
+        if get_bucket(user) == 'test':
+            test_group_page()
+        else:
+            control_group_page()
+
+    def get_bucket(user):
+        if user.bucket is None:
+            user.bucket = choice(('test', 'control'))
+            user.save()
+        return user.bucket
+    
+Logging
+=======
+
+:Log Everything:
+
+* Log everything you can
+* Recording the bucket is very important
+* Flat files are easy
+* JSON is convenient (can be newline delimited)
+
+Logging Pseudocode
+==================
+
+:Just Kidding:
+
+* It's not actually easy
+* Multiple threads/processes/machines -> :(
+* Options include database, syslog or message queue
+* Gets harder at scale (e.g. Facebook's Scribe)
+
+Log Processing
+==============
+
+:ETL:
+
+* Extract the log data
+* Transform it into a useful format
+* Load the data for analysis
+* Typically done in batch, e.g. daily or hourly
+
+Log Processing Example
+======================
+
+::
+
+    db = sqlite3.connect('testdata.db')
+    cur = db.cursor()
+    COLS = 'timestamp', 'user_id', 'bucket', 'dollars'
+    cur.execute('CREATE TABLE testdata(' +
+                ','.join(COLS) + ')')
+
+    for line in log_lines:
+        dct = json.loads(line)
+        row = [dct[col] for col in COLS]
+        cur.execute(
+            'INSERT INTO testdata VALUES(?,?,?,?)',
+            row)
+    db.commit()
+
+Analysis
+========
+
+:Math time:
+
+* Plot data over time to see difference visually
+* Make sure to compare sample size
+* Check your work
+
+Overall Query
+=============
+
+:Overall Performance:
+
+::
+
+    SELECT
+        bucket,
+        COUNT(DISTINCT user_id) AS sample_size,
+        SUM(dollars)*1.0/COUNT(DISTINCT user_id) AS arpu
+    FROM testdata
+    GROUP BY bucket;
+
+Daily Query
+===========
+
+:Plot This:
+
+::
+
+    SELECT
+        date(timestamp, 'unixepoch') as day,
+        bucket,
+        COUNT(DISTINCT user_id) AS sample_size,
+        SUM(dollars)*1.0/COUNT(DISTINCT user_id) AS arpu
+    FROM testdata
+    GROUP BY day, bucket ORDER BY day, bucket;
+
+Sanity Check Query
+==================
+
+:No Results is Good:
+
+::
+
+    SELECT user_id
+    FROM testdata
+    GROUP BY user_id HAVING COUNT(DISTINCT bucket)>1;
+
+Simpson's Paradox
+=================
+
+:When Good is Bad:
+
+* Hidden variables can confuse results
+* Sample size is important
+* Random selection and 50/50 split helps avoid this issue
+
+Paradox Example
+===============
+
+:Grad School Acceptance:
+
++---------+-----------------+----------------+
+|         | Men             | Women          |
++---------+-----------------+----------------+
+| Arts    | 3/4 (75%)       | 1/1 **(100%)** |
++---------+-----------------+----------------+
+| Science | 0/1 (0%)        | 1/4 **(25%)**  |
++---------+-----------------+----------------+
+| Totals  | 3/5 **(60%)**   | 2/5 (40%)      |
++---------+-----------------+----------------+
+
+Ramp-up
+=======
+
+:Start Slow:
+
+* New features are scary, might be broken
+* Run a staged experiment, e.g. 1% -> 5% -> 20% -> 50%
+* If it is obviously broken, abort!
+
+Ramp-up Implementation
+======================
+
+:Buckets For Your Buckets:
+
+* Segment users randomly into range(100) buckets
+* During 1% period include range(1) in test group
+* During 5% period include range(5) in test group
+* ...
+
+Ramp-up Analysis
+================
+
+:More Math:
+
+* Users will cross from control to test group during experiment
+* Overlap is still bad
+* Easiest to only look at single test period
+* Double-check queries to make sure there is no overlap
+
+Parallel Tests
+==============
+
+:Even More Math:
+
+* Multivariate Testing
+* Test multiple changes in parallel
+* Changes can interfere, reinforce, or have no effect on each other
+* Beyond scope of this talk
+
+Group Selection Pitfalls
+========================
+
+:DANGER!:
+
+* Each experiment should have independent group selection
+* If you re-use buckets across experiments your data is invalid
+* Important even if not running parallel tests!
+
+Confidence
+==========
+
+:More Data:
+
+* Confidence goes up with lots of samples
+* Chi-squared or Student's t-test good candidates
+* Not my expertise, find a statistician :)
+
+Free Tools
+==========
+
+Django Lean
+    http://bitbucket.org/akoha/django-lean/
+Google Website Optimizer
+    http://services.google.com/websiteoptimizer/
+
+More Info
+=========
+
+Microsoft's Experimentation Platform
+    http://exp-platform.com/
+Effective A/B Testing
+    http://elem.com/~btilly/effective-ab-testing/
+Startup Lessons Learned
+    http://www.startuplessonslearned.com/search/label/split-test
+Andrew Chen's Blog
+    http://andrewchenblog.com/
+
+Join the Mochi Crew
+===================
+
+:We're hiring:
+
+.. image:: images/mochi_crew.jpg
+
+Questions?
+==========
+
+:Twitter:
+  @etrepum
+:Blog:
+  http://bob.pythonmac.org/
+:Mochi Media:
+  http://www.mochimedia.com/
+  
+Mochi is hiring:
+
+* http://www.mochimedia.com/jobs.html

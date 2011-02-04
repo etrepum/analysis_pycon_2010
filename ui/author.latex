@@ -1,0 +1,6 @@
+\definecolor{rrblitbackground}{rgb}{0.0, 0.0, 0.0}
+
+\title[Drop ACID and think about data]{Drop ACID and think about data}
+\author[Bob Ippolito]{Bob Ippolito\\Mochi Media, Inc.}
+\institute[PyCon 2009]{PyCon 2009 - Chicago (actually Rosemont)}
+\date{March 28, 2009}

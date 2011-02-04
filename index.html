@@ -1,0 +1,936 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.5: http://docutils.sourceforge.net/" />
+<meta name="version" content="S5 1.1" />
+<title>Analysis: The Other Kind of Testing</title>
+<meta name="author" content="Bob Ippolito (&#64;etrepum)" />
+<meta name="date" content="February 2010" />
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 5196 2007-06-03 20:25:28Z wiemann $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left {
+  clear: left }
+
+img.align-right {
+  clear: right }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font-family: serif ;
+  font-size: 100% }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+<!-- configuration parameters -->
+<meta name="defaultView" content="slideshow" />
+<meta name="controlVis" content="hidden" />
+<!-- style sheet links -->
+<script src="ui/mochikit/slides.js" type="text/javascript"></script>
+<link rel="stylesheet" href="ui/mochikit/slides.css"
+      type="text/css" media="projection" id="slideProj" />
+<link rel="stylesheet" href="ui/mochikit/outline.css"
+      type="text/css" media="screen" id="outlineStyle" />
+<link rel="stylesheet" href="ui/mochikit/print.css"
+      type="text/css" media="print" id="slidePrint" />
+<link rel="stylesheet" href="ui/mochikit/opera.css"
+      type="text/css" media="projection" id="operaFix" />
+
+<style type="text/css">
+#currentSlide {display: none;}
+</style>
+</head>
+<body>
+<div class="layout">
+<div id="controls"></div>
+<div id="currentSlide"></div>
+<div id="header">
+
+</div>
+<div id="footer">
+<h1>Analysis: The Other Kind of Testing</h1>
+
+</div>
+</div>
+<div class="presentation">
+<div class="slide" id="slide0">
+<h1 class="title">Analysis: The Other Kind of Testing</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr><th class="docinfo-name">Author:</th>
+<td>Bob Ippolito (&#64;etrepum)</td></tr>
+<tr><th class="docinfo-name">Date:</th>
+<td>February 2010</td></tr>
+<tr class="field"><th class="docinfo-name">Venue:</th><td class="field-body">PyCon 2010</td>
+</tr>
+</tbody>
+</table>
+<!-- Definitions of interpreted text roles (classes) for S5/HTML data. -->
+<!-- This data file has been placed in the public domain. -->
+<!-- Colours
+======= -->
+<!-- Text Sizes
+========== -->
+<!-- Display in Slides (Presentation Mode) Only
+========================================== -->
+<!-- Display in Outline Mode Only
+============================ -->
+<!-- Display in Print Only
+===================== -->
+<!-- Display in Handout Mode Only
+============================ -->
+<!-- Incremental Display
+=================== -->
+<!-- colors -->
+<!-- =========================== -->
+<!-- general useful commands -->
+<!-- =========================== -->
+<!-- closed bracket -->
+<!-- =========================== -->
+<!-- example block -->
+<!-- =========================== -->
+<!-- alert block -->
+<!-- =========================== -->
+<!-- columns -->
+<!-- =========================== -->
+<script type="text/javascript">
+    addLoadEvent(function () {
+        appendChildNodes(document.body,
+            DIV({id: "mochikit_logo", 'class': 'draggable'}));
+    });
+</script>
+
+</div>
+<div class="slide" id="bob-s-perspective">
+<h1>Bob's Perspective</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Mochi Media:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>CTO/Cofounder of Mochi Media</li>
+<li>Platform for Flash games</li>
+<li>Virtual currency and game discovery for gamers</li>
+</ul>
+</div>
+<div class="slide" id="mochi-2005">
+<h1>Mochi 2005</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Starting Up:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<img alt="images/mochi_2005.jpg" src="images/mochi_2005.jpg" />
+</div>
+<div class="slide" id="mochi-2010">
+<h1>Mochi 2010</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Mochi joins Shanda Games:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<img alt="images/mochi_2010.jpg" src="images/mochi_2010.jpg" />
+</div>
+<div class="slide" id="analysis">
+<h1>Analysis</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Definition:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>Separation of a whole into its component parts</li>
+<li>An examination of a complex, its elements, and their relations</li>
+</ul>
+</div>
+<div class="slide" id="why-do-i-care">
+<h1>Why do I care?</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">SCIENCE:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>Be creative when exploring new ideas</li>
+<li>Not when measuring them</li>
+</ul>
+</div>
+<div class="slide" id="who-does-this">
+<h1>Who does this?</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">A-Z of online:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>Amazon</li>
+<li>Facebook</li>
+<li>Google</li>
+<li>Microsoft</li>
+<li>Zynga</li>
+</ul>
+</div>
+<div class="slide" id="how-it-works">
+<h1>How it works</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Scientific Method:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>Create a hypothesis</li>
+<li>Design an experiment</li>
+<li>Run experiment</li>
+<li>Analyze the results</li>
+</ul>
+</div>
+<div class="slide" id="hypothesis">
+<h1>Hypothesis</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Your Great Idea:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>Divergent from what you have</li>
+<li>Simple</li>
+<li>Testable</li>
+</ul>
+</div>
+<div class="slide" id="testable">
+<h1>Testable</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Fitness Metric:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>Quantifiable</li>
+<li>Business relevant</li>
+<li>Key Performance Indicator</li>
+<li>Overall Evaluation Criteria</li>
+</ul>
+</div>
+<div class="slide" id="fitness-metric-examples">
+<h1>Fitness Metric Examples</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Your Metric May Vary:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>Click-through rate (CTR)</li>
+<li>Cost Per Acquisition (CPA)</li>
+<li>Avg $ per user (ARPU)</li>
+<li>% of gamers who beat the last level</li>
+</ul>
+</div>
+<div class="slide" id="experiment">
+<h1>Experiment</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">&quot;To Try Out&quot;:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>Method of investigation</li>
+<li>Many ways to do this</li>
+<li>Easiest to follow a template</li>
+</ul>
+</div>
+<div class="slide" id="split-testing">
+<h1>Split Testing</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">A/B Testing:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>50% control group gets no changes</li>
+<li>50% test group sees changes</li>
+<li>Group selection method is important</li>
+</ul>
+</div>
+<div class="slide" id="group-selection">
+<h1>Group Selection</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">random.choice:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>Group should be randomly selected</li>
+<li>Pin user to group during experiment</li>
+<li>Easiest with logins, but can be done without (cookies, etc.)</li>
+</ul>
+</div>
+<div class="slide" id="selection-pseudocode">
+<h1>Selection Pseudocode</h1>
+<pre class="literal-block">
+from random import choice
+
+def view_page():
+    if get_bucket(user) == 'test':
+        test_group_page()
+    else:
+        control_group_page()
+
+def get_bucket(user):
+    if user.bucket is None:
+        user.bucket = choice(('test', 'control'))
+        user.save()
+    return user.bucket
+</pre>
+</div>
+<div class="slide" id="logging">
+<h1>Logging</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Log Everything:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>Log everything you can</li>
+<li>Recording the bucket is very important</li>
+<li>Flat files are easy</li>
+<li>JSON is convenient (can be newline delimited)</li>
+</ul>
+</div>
+<div class="slide" id="logging-pseudocode">
+<h1>Logging Pseudocode</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Just Kidding:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>It's not actually easy</li>
+<li>Multiple threads/processes/machines -&gt; :(</li>
+<li>Options include database, syslog or message queue</li>
+<li>Gets harder at scale (e.g. Facebook's Scribe)</li>
+</ul>
+</div>
+<div class="slide" id="log-processing">
+<h1>Log Processing</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">ETL:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>Extract the log data</li>
+<li>Transform it into a useful format</li>
+<li>Load the data for analysis</li>
+<li>Typically done in batch, e.g. daily or hourly</li>
+</ul>
+</div>
+<div class="slide" id="log-processing-example">
+<h1>Log Processing Example</h1>
+<pre class="literal-block">
+db = sqlite3.connect('testdata.db')
+cur = db.cursor()
+COLS = 'timestamp', 'user_id', 'bucket', 'dollars'
+cur.execute('CREATE TABLE testdata(' +
+            ','.join(COLS) + ')')
+
+for line in log_lines:
+    dct = json.loads(line)
+    row = [dct[col] for col in COLS]
+    cur.execute(
+        'INSERT INTO testdata VALUES(?,?,?,?)',
+        row)
+db.commit()
+</pre>
+</div>
+<div class="slide" id="id1">
+<h1>Analysis</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Math time:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>Plot data over time to see difference visually</li>
+<li>Make sure to compare sample size</li>
+<li>Check your work</li>
+</ul>
+</div>
+<div class="slide" id="overall-query">
+<h1>Overall Query</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Overall Performance:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<pre class="literal-block">
+SELECT
+    bucket,
+    COUNT(DISTINCT user_id) AS sample_size,
+    SUM(dollars)*1.0/COUNT(DISTINCT user_id) AS arpu
+FROM testdata
+GROUP BY bucket;
+</pre>
+</div>
+<div class="slide" id="daily-query">
+<h1>Daily Query</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Plot This:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<pre class="literal-block">
+SELECT
+    date(timestamp, 'unixepoch') as day,
+    bucket,
+    COUNT(DISTINCT user_id) AS sample_size,
+    SUM(dollars)*1.0/COUNT(DISTINCT user_id) AS arpu
+FROM testdata
+GROUP BY day, bucket ORDER BY day, bucket;
+</pre>
+</div>
+<div class="slide" id="sanity-check-query">
+<h1>Sanity Check Query</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">No Results is Good:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<pre class="literal-block">
+SELECT user_id
+FROM testdata
+GROUP BY user_id HAVING COUNT(DISTINCT bucket)&gt;1;
+</pre>
+</div>
+<div class="slide" id="simpson-s-paradox">
+<h1>Simpson's Paradox</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">When Good is Bad:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>Hidden variables can confuse results</li>
+<li>Sample size is important</li>
+<li>Random selection and 50/50 split helps avoid this issue</li>
+</ul>
+</div>
+<div class="slide" id="paradox-example">
+<h1>Paradox Example</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Grad School Acceptance:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="40%" />
+<col width="38%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>&nbsp;</td>
+<td>Men</td>
+<td>Women</td>
+</tr>
+<tr><td>Arts</td>
+<td>3/4 (75%)</td>
+<td>1/1 <strong>(100%)</strong></td>
+</tr>
+<tr><td>Science</td>
+<td>0/1 (0%)</td>
+<td>1/4 <strong>(25%)</strong></td>
+</tr>
+<tr><td>Totals</td>
+<td>3/5 <strong>(60%)</strong></td>
+<td>2/5 (40%)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="slide" id="ramp-up">
+<h1>Ramp-up</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Start Slow:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>New features are scary, might be broken</li>
+<li>Run a staged experiment, e.g. 1% -&gt; 5% -&gt; 20% -&gt; 50%</li>
+<li>If it is obviously broken, abort!</li>
+</ul>
+</div>
+<div class="slide" id="ramp-up-implementation">
+<h1>Ramp-up Implementation</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Buckets For Your Buckets:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>Segment users randomly into range(100) buckets</li>
+<li>During 1% period include range(1) in test group</li>
+<li>During 5% period include range(5) in test group</li>
+<li>...</li>
+</ul>
+</div>
+<div class="slide" id="ramp-up-analysis">
+<h1>Ramp-up Analysis</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">More Math:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>Users will cross from control to test group during experiment</li>
+<li>Overlap is still bad</li>
+<li>Easiest to only look at single test period</li>
+<li>Double-check queries to make sure there is no overlap</li>
+</ul>
+</div>
+<div class="slide" id="parallel-tests">
+<h1>Parallel Tests</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Even More Math:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>Multivariate Testing</li>
+<li>Test multiple changes in parallel</li>
+<li>Changes can interfere, reinforce, or have no effect on each other</li>
+<li>Beyond scope of this talk</li>
+</ul>
+</div>
+<div class="slide" id="group-selection-pitfalls">
+<h1>Group Selection Pitfalls</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">DANGER!:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>Each experiment should have independent group selection</li>
+<li>If you re-use buckets across experiments your data is invalid</li>
+<li>Important even if not running parallel tests!</li>
+</ul>
+</div>
+<div class="slide" id="confidence">
+<h1>Confidence</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">More Data:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>Confidence goes up with lots of samples</li>
+<li>Chi-squared or Student's t-test good candidates</li>
+<li>Not my expertise, find a statistician :)</li>
+</ul>
+</div>
+<div class="slide" id="free-tools">
+<h1>Free Tools</h1>
+<dl class="docutils">
+<dt>Django Lean</dt>
+<dd><a class="reference external" href="http://bitbucket.org/akoha/django-lean/">http://bitbucket.org/akoha/django-lean/</a></dd>
+<dt>Google Website Optimizer</dt>
+<dd><a class="reference external" href="http://services.google.com/websiteoptimizer/">http://services.google.com/websiteoptimizer/</a></dd>
+</dl>
+</div>
+<div class="slide" id="more-info">
+<h1>More Info</h1>
+<dl class="docutils">
+<dt>Microsoft's Experimentation Platform</dt>
+<dd><a class="reference external" href="http://exp-platform.com/">http://exp-platform.com/</a></dd>
+<dt>Effective A/B Testing</dt>
+<dd><a class="reference external" href="http://elem.com/~btilly/effective-ab-testing/">http://elem.com/~btilly/effective-ab-testing/</a></dd>
+<dt>Startup Lessons Learned</dt>
+<dd><a class="reference external" href="http://www.startuplessonslearned.com/search/label/split-test">http://www.startuplessonslearned.com/search/label/split-test</a></dd>
+<dt>Andrew Chen's Blog</dt>
+<dd><a class="reference external" href="http://andrewchenblog.com/">http://andrewchenblog.com/</a></dd>
+</dl>
+</div>
+<div class="slide" id="join-the-mochi-crew">
+<h1>Join the Mochi Crew</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">We're hiring:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<img alt="images/mochi_crew.jpg" src="images/mochi_crew.jpg" />
+</div>
+<div class="slide" id="questions">
+<h1>Questions?</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Twitter:</th><td class="field-body">&#64;etrepum</td>
+</tr>
+<tr class="field"><th class="field-name">Blog:</th><td class="field-body"><a class="reference external" href="http://bob.pythonmac.org/">http://bob.pythonmac.org/</a></td>
+</tr>
+<tr class="field"><th class="field-name">Mochi Media:</th><td class="field-body"><a class="reference external" href="http://www.mochimedia.com/">http://www.mochimedia.com/</a></td>
+</tr>
+</tbody>
+</table>
+<p>Mochi is hiring:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.mochimedia.com/jobs.html">http://www.mochimedia.com/jobs.html</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>
